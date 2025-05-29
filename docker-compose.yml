@@ -16,8 +16,6 @@ services:
       - ./backend:/var/www/backend
     environment:
       - VIRTUAL_HOST=api.fox-holiday-homes.test
-      - LETSENCRYPT_HOST=api.fox-holiday-homes.test
-      - LETSENCRYPT_EMAIL=twoj-email@example.com
       - APP_ENV=dev
       - APP_DEBUG=1
       - SYMFONY_SERVER_HOST=0.0.0.0
@@ -76,8 +74,25 @@ services:
     networks:
       - network-fox-holiday-homes
 
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin-fox-holiday
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PG_ADMIN_USER}
+      PGADMIN_DEFAULT_PASSWORD: ${PG_ADMIN_PASS}
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - network-fox-holiday-homes
+    depends_on:
+      - db
+
 volumes:
   pgdata:
+  pgadmin_data:
 
 networks:
   network-fox-holiday-homes:
