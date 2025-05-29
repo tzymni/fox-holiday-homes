@@ -19,6 +19,13 @@ class RefreshToken
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $expiresAt;
 
+    public function __construct(string $token, User $user, \DateTimeInterface $expiresAt)
+    {
+        $this->token = $token;
+        $this->user = $user;
+        $this->expiresAt = $expiresAt;
+    }
+
     // getters/setters
     public function getUser(): User
     {
@@ -29,5 +36,9 @@ class RefreshToken
     {
         $this->user = $user;
         return $this;
+    }
+
+    public function getExpiresAt(): \DateTimeInterface {
+        return $this->expiresAt;
     }
 }

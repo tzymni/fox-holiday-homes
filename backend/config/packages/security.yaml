@@ -17,14 +17,18 @@ security:
                 check_path: /login
                 username_path: email
                 password_path: password
-                success_handler: lexik_jwt_authentication.handler.authentication_success
+                success_handler: App\Security\AuthenticationSuccessHandler
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
         api:
             pattern: ^/
             stateless: true
             jwt: ~
+        main:
+            custom_authenticators:
+                - App\Security\AuthenticationSuccessHandler
 
     access_control:
         - { path: ^/login$, roles: PUBLIC_ACCESS }
+        - { path: ^/token/refresh$, roles: PUBLIC_ACCESS }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

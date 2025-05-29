@@ -6,6 +6,10 @@
 parameters:
 
 services:
+    App\Security\AuthenticationSuccessHandler:
+        arguments:
+            $refreshTokenTTL: 2592000
+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
