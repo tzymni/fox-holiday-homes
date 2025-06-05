@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Infrastructure\UserManagement\Jwt;
 
-use App\Repository\RefreshTokenRepository;
+use App\Domain\UserManagement\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RefreshTokenRepository::class)]

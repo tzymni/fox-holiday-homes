@@ -6,7 +6,9 @@
 parameters:
 
 services:
-    App\Security\AuthenticationSuccessHandler:
+
+
+    App\Infrastructure\UserManagement\Security\AuthenticationSuccessHandler:
         arguments:
             $refreshTokenTTL: 2592000
 
@@ -23,6 +25,10 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+#    App\Service\Greeter:
+#        arguments:
+#            $prefix: 'No siemka'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

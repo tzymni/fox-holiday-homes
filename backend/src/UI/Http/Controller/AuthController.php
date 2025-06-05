@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\UI\Http\Controller;
 
-use App\Entity\RefreshToken;
+use App\Infrastructure\UserManagement\Jwt\RefreshToken;
 use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
@@ -19,13 +20,13 @@ final class AuthController extends AbstractController
     /**
      * Because the gesdinet/jwt-refresh-token-bundle is not compatible with Lexik v3 I created an own refreshToken functionality.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param EntityManagerInterface $em
      * @param JWTTokenManagerInterface $jwtManager
      * @return JsonResponse
      */
     #[Route('/token/refresh', name: 'token_refresh', methods: ['POST'])]
-    public function refreshToken(\Symfony\Component\HttpFoundation\Request $request, EntityManagerInterface $em, JWTTokenManagerInterface $jwtManager): JsonResponse
+    public function refreshToken(Request $request, EntityManagerInterface $em, JWTTokenManagerInterface $jwtManager): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $refreshTokenString = $data['refresh_token'] ?? null;

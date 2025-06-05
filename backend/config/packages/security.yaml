@@ -1,12 +1,12 @@
 security:
     password_hashers:
-        App\Entity\User:
+        App\Domain\UserManagement\Entity\User:
             algorithm: auto
 
     providers:
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Domain\UserManagement\Entity\User
                 property: email
 
     firewalls:
@@ -17,7 +17,7 @@ security:
                 check_path: /login
                 username_path: email
                 password_path: password
-                success_handler: App\Security\AuthenticationSuccessHandler
+                success_handler: App\Infrastructure\UserManagement\Security\AuthenticationSuccessHandler
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
         api:
@@ -26,7 +26,7 @@ security:
             jwt: ~
         main:
             custom_authenticators:
-                - App\Security\AuthenticationSuccessHandler
+                - App\Infrastructure\UserManagement\Security\AuthenticationSuccessHandler
 
     access_control:
         - { path: ^/login$, roles: PUBLIC_ACCESS }

@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Repository;
+namespace App\Infrastructure\UserManagement\Jwt;
 
-use App\Entity\RefreshToken;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
