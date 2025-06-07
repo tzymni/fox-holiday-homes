@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# 3) Zainstaluj Symfony CLI bezpośrednio jako binarkę
 RUN wget -O /usr/local/bin/symfony https://github.com/symfony/cli/releases/latest/download/symfony_linux_amd64 \
     && chmod +x /usr/local/bin/symfony
 

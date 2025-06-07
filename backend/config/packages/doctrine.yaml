@@ -28,11 +28,11 @@ doctrine:
                 type: attribute
                 dir: '%kernel.project_dir%/src/Infrastructure/UserManagement/Jwt'
                 prefix: 'App\Infrastructure\UserManagement\Jwt'
-#            House:
-#                is_bundle: false
-#                type: attribute
-#                dir: '%kernel.project_dir%/src/Domain/House/Entity'
-#                prefix: 'App\Domain\House\Entity'
+            HouseManagement:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Domain/HouseManagement/Entity'
+                prefix: 'App\Domain\HouseManagement\Entity'
 
 when@test:
     doctrine:
