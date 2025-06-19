@@ -22,7 +22,7 @@ readonly class DoctrineHouseRepository implements HouseRepositoryInterface
         $this->entityManager->flush();
     }
 
-    public function findById(int $id): ?House
+    public function findById(string $id): ?House
     {
         try {
             return $this->entityManager->find(House::class, $id);

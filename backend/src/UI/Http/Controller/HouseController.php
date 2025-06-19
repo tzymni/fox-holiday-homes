@@ -5,9 +5,9 @@ namespace App\UI\Http\Controller;
 use App\Application\HouseManagement\Command\AddHouseCommand;
 use App\Application\HouseManagement\Handler\AddHouseHandler;
 use App\Application\HouseManagement\Handler\GetAllHousesQueryHandler;
+use App\Application\HouseManagement\Handler\GetHouseByIdQueryHandler;
 use App\Application\HouseManagement\Query\GetAllHousesQuery;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Application\HouseManagement\Query\GetHouseByIdQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +30,6 @@ final class HouseController extends AbstractController
         return new JsonResponse(['status' => 'ok'], Response::HTTP_CREATED);
     }
 
-
     /**
      * @param GetAllHousesQueryHandler $handler
      * @return JsonResponse
@@ -41,5 +40,18 @@ final class HouseController extends AbstractController
         $command = new GetAllHousesQuery();
         $houses = $handler($command);
         return new JsonResponse($houses, Response::HTTP_OK);
+    }
+
+    /**
+     * @param GetHouseByIdQueryHandler $handler
+     * @param string $id
+     * @return JsonResponse
+     */
+    #[Route('/house/{id}', name: 'house_show', methods: ['GET'])]
+    public function getHouseById(GetHouseByIdQueryHandler $handler, string $id): JsonResponse
+    {
+        $command = new GetHouseByIdQuery($id);
+        $house = $handler($command);
+        return new JsonResponse($house, Response::HTTP_OK);
     }
 }
