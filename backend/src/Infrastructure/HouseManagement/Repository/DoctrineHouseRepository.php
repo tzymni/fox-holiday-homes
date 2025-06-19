@@ -31,4 +31,11 @@ readonly class DoctrineHouseRepository implements HouseRepositoryInterface
         }
 
     }
+
+    public function findAll(): array
+    {
+        return $this->entityManager
+            ->getRepository(House::class)
+            ->findAll();
+    }
 }

@@ -4,6 +4,8 @@ namespace App\UI\Http\Controller;
 
 use App\Application\HouseManagement\Command\AddHouseCommand;
 use App\Application\HouseManagement\Handler\AddHouseHandler;
+use App\Application\HouseManagement\Handler\GetAllHousesQueryHandler;
+use App\Application\HouseManagement\Query\GetAllHousesQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,5 +28,18 @@ final class HouseController extends AbstractController
         $command = new AddHouseCommand($request->get('name'), $request->get('maxGuests'), $request->get('area'));
         $handler->handle($command);
         return new JsonResponse(['status' => 'ok'], Response::HTTP_CREATED);
+    }
+
+
+    /**
+     * @param GetAllHousesQueryHandler $handler
+     * @return JsonResponse
+     */
+    #[Route('/house', name: 'house_list', methods: ['GET'])]
+    public function getAllHouses(GetAllHousesQueryHandler $handler): JsonResponse
+    {
+        $command = new GetAllHousesQuery();
+        $houses = $handler($command);
+        return new JsonResponse($houses, Response::HTTP_OK);
     }
 }

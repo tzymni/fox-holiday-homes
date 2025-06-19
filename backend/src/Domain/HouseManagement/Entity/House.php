@@ -7,7 +7,7 @@ use App\Infrastructure\HouseManagement\Repository\DoctrineHouseRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: DoctrineHouseRepository::class)]
+#[ORM\Entity]
 #[ORM\Table(name: 'houses')]
 #[ORM\HasLifecycleCallbacks]
 class House

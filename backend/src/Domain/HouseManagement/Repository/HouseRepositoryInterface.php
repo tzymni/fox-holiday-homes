@@ -9,4 +9,6 @@ interface HouseRepositoryInterface
     public function save(House $house);
 
     public function findById(int $id): ?House;
+
+    public function findAll(): array;
 }
