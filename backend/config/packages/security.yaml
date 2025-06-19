@@ -20,6 +20,10 @@ security:
                 success_handler: App\Infrastructure\UserManagement\Security\AuthenticationSuccessHandler
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
+        token_refresh:
+            pattern: ^/token/refresh$
+            stateless: true
+
         api:
             pattern: ^/
             stateless: true
