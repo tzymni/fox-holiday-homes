@@ -111,5 +111,15 @@ class House
         return $this->updatedAtUtc;
     }
 
+    public function changeMaxGuests(int $maxGuests): void
+    {
+        $this->maxGuests = $maxGuests;
+    }
+
+    public function changeAreaInSquareMeters(float $areaInSquareMeters): void
+    {
+        $this->areaInSquareMeters = $areaInSquareMeters;
+    }
+
 
 }
