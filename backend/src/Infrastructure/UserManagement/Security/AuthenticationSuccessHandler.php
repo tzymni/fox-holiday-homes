@@ -3,6 +3,7 @@
 namespace App\Infrastructure\UserManagement\Security;
 
 use App\Infrastructure\UserManagement\Jwt\RefreshToken;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -31,20 +32,16 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
             throw new \RuntimeException('Authenticated user not found.');
         }
 
-        // 1. Generuj access token (JWT)
         $jwt = $this->jwtManager->create($user);
 
-        // 2. Generuj refresh token - losowy string (np. 64 znaki)
         $refreshTokenString = bin2hex(random_bytes(32));
 
-        // 3. Utwórz obiekt RefreshToken i zapisz do bazy
-        $expiresAt = (new \DateTime())->modify("+{$this->refreshTokenTTL} seconds");
+        $expiresAt = (new DateTime())->modify("+{$this->refreshTokenTTL} seconds");
 
         $refreshToken = new RefreshToken($refreshTokenString, $user, $expiresAt);
         $this->em->persist($refreshToken);
         $this->em->flush();
 
-        // 4. Zwróć oba tokeny w odpowiedzi JSON
         return new JsonResponse([
             'token' => $jwt,
             'refresh_token' => $refreshTokenString,

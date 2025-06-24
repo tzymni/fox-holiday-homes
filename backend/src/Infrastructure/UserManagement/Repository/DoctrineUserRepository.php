@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 /**
  * @extends ServiceEntityRepository<User>
  */
-class DoctrineUserRepository extends ServiceEntityRepository implements UserProviderInterface, PasswordUpgraderInterface
+class DoctrineUserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -35,42 +35,4 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserProv
         $this->getEntityManager()->flush();
     }
 
-    //    /**
-    //     * @return User[] Returns an array of User objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?User
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
-    public function refreshUser(UserInterface $user): UserInterface
-    {
-        // TODO: Implement refreshUser() method.
-    }
-
-    public function supportsClass(string $class): bool
-    {
-        // TODO: Implement supportsClass() method.
-    }
-
-    public function loadUserByIdentifier(string $identifier): UserInterface
-    {
-        // TODO: Implement loadUserByIdentifier() method.
-    }
 }

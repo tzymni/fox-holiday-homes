@@ -6,6 +6,8 @@ use App\Domain\UserManagement\Entity\User;
 use App\Infrastructure\HouseManagement\Repository\DoctrineHouseRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Throwable;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'houses')]
@@ -86,7 +88,8 @@ class House
 
 
     /**
-     * @throws \DateMalformedStringException
+     * @return void
+     * @noinspection PhpDocMissingThrowsInspection
      */
     #[ORM\PrePersist]
     public function onPrePersist(): void

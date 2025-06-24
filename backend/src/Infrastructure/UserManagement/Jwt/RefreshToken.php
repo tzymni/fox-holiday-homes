@@ -4,6 +4,7 @@ namespace App\Infrastructure\UserManagement\Jwt;
 
 use App\Domain\UserManagement\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: RefreshTokenRepository::class)]
 class RefreshToken
@@ -14,12 +15,12 @@ class RefreshToken
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
-    private User $user;
+    private UserInterface $user;
 
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $expiresAt;
 
-    public function __construct(string $token, User $user, \DateTimeInterface $expiresAt)
+    public function __construct(string $token, UserInterface $user, \DateTimeInterface $expiresAt)
     {
         $this->token = $token;
         $this->user = $user;
@@ -27,7 +28,7 @@ class RefreshToken
     }
 
     // getters/setters
-    public function getUser(): User
+    public function getUser(): UserInterface
     {
         return $this->user;
     }
@@ -40,5 +41,10 @@ class RefreshToken
 
     public function getExpiresAt(): \DateTimeInterface {
         return $this->expiresAt;
+    }
+
+    public function getToken(): string
+    {
+        return $this->token;
     }
 }
